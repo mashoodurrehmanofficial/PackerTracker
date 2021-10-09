@@ -1,0 +1,35 @@
+{% extends 'base.html' %}v
+{% block 'mainbody' %}
+
+
+<div class="right" style="margin:5px 10px">
+  <input type="button" class="datepicker btn" value="Select Start Range" id="start_date">
+  <input type="button" class="datepicker btn" value="Select End Range" id="end_date">
+  <input type="button" class="btn grey darken-3" value="Fetch Results" id="get_results">
+
+</div>
+
+
+<br><br>
+  
+<div style="margin:5px 10px"> 
+        
+    <div class="card card-chart">
+      <div style="padding:5px 10px">
+        <!-- <h5 class="card-category">Daily Sales</h5>  -->
+      </div>
+      <div class="card-body">
+        <div class="chart-area">
+          <canvas style="height:450px" id="CountryChart"></canvas>
+        </div>
+      </div>
+    </div>
+    
+
+</div>
+
+{% endblock 'mainbody' %}
+<script></script>
+{% block 'js' %}
+
+{% endblock 'js' %}

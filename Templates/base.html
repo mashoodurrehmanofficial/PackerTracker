@@ -1,0 +1,100 @@
+{% load static  %}
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/cowsay@1.4.0/build/cowsay.umd.min.js"></script>
+<link rel="stylesheet" href="{{ STATIC_URL }}/Static/css/materialize.css">  
+<link rel="stylesheet" href="{{ STATIC_URL }}/Static/css/sortable-tables.min.css">  
+<link rel="stylesheet" href="{{ STATIC_URL }}/Static/css/sortable-tables.min.css">  
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">  -->
+    <script src="{{ STATIC_URL }}/Static/javascript/materialize.js"></script> 
+    <script src="{{ STATIC_URL }}/Static/javascript/jquery.js"></script>
+{% if page_title %}
+  <title>{{page_title}}</title>  
+{% else %}
+  <title>Packer Tracker</title>
+  {% endif %}
+  
+
+<link rel="shortcut icon" href="{{ STATIC_URL }}/Static/images/favicon.png" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;1,200;1,300;1,400;1,600&display=swap" rel="stylesheet">
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+  
+
+
+  <style>
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      text-align: justify; 
+    }
+    .text{font-family: 'Nunito', sans-serif;}
+
+td{
+  padding: 5px !important
+}
+
+    table, td, th {
+      border: 1px solid rgb(184, 184, 184);
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+ 
+    
+    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+</head>
+<body id="body">      
+{% include 'partials/root/navbar.html' %}
+ 
+{% block 'mainbody' %}
+
+ 
+{% endblock 'mainbody' %}
+          
+          
+
+  <!-- Dropdown Trigger -->
+ 
+           
+<script src="{{ STATIC_URL }}/Static/javascript/chartjs.min.js"></script>  
+<script src="{{ STATIC_URL }}/Static/javascript/demo.js"></script>  
+
+
+
+<script src="{{ STATIC_URL }}/Static/javascript/jquery.js"></script>  
+
+
+
+<script src="{{ STATIC_URL }}/Static/javascript/sortable-tables.min.js"></script>   
+{% block 'js' %}
+{% endblock 'js' %}
+<script>
+ 
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, {
+      Modal:true
+    });
+  });
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {
+      Datepicker:true,
+      autoClose:true
+    });
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems, {
+      Dropdown:true,
+      coverTrigger:false
+    });
+  });
+</script>
+   </body>
+ </html>

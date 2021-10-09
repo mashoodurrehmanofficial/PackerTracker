@@ -1,0 +1,361 @@
+{% extends 'base.html' %}v
+{% block 'mainbody' %}
+
+
+
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content " style="padding:7px 20px !important;">
+        <div class="row"> 
+
+{% csrf_token %}
+            <form action="" method="POST">
+                <div class="input-field col l6 m6 s6">
+                    <input id="barcode" name="barcode" type="text" class="validate">
+                    <label for="barcode">Rig Barcode</label>
+                </div>
+ 
+
+                <div class="input-field col l6 m6 s6">
+                    <input id="container_and_harness" name="container_and_harness" type="number" class="validate">
+                    <label for="container_and_harness">Container and Harness</label>
+                </div>
+
+                <div class="input-field col l6 m6 s6">
+                    <input id="main_canopy_line_set" name="main_canopy_line_set" type="number" class="validate">
+                    <label for="main_canopy_line_Set">Main Canopy Line set</label>
+                </div>
+
+                <div class="input-field col l6 m6 s6">
+                    <input id="main_canopy" name="main_canopy" type="number" class="validate">
+                    <label for="main_canopy">Main Canopy</label>
+                </div>
+
+                <div class="input-field col l6 m6 s6">
+                    <input id="d_bag" name="d_bag" type="number" class="validate">
+                    <label for="d_bag">D Bag</label>
+                </div>
+
+                <div class="input-field col l6 m6 s6">
+                    <input id="pilot_chute_and_bridle" name="pilot_chute_and_bridle" type="number" class="validate">
+                    <label for="pilot_chute_and_bridle">Pilot Chute/Drogue and Bridle</label>
+                </div>
+
+
+                 <br> <button type="submit" class="btn right">Add RIG <i class="material-icons right">add</i></button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal Structure -->
+<div id="modal2" class="modal ">
+    <div class="modal-content" style="padding:7px 20px !important;">
+        
+        
+        <form action="" method="POST" id="form2">
+                <div class="row"> 
+                <div class="input-field col l6 m6 s6">
+                    <input id="barcode2" name="barcode" type="text" readonly>
+                    <label id="barcode2" for="barcode2">Rig Barcode</label>
+                </div>
+
+
+        
+                <div class="input-field col l6 m6 s6">
+                    <input id="container_and_harness2" name="container_and_harness" type="number" class="validate">
+                    <label id="container_and_harness2" for="container_and_harness2">Container and Harness</label>
+                </div>
+
+                <div class="input-field col l6 m6 s6">
+                    <input id="main_canopy_line_set2" name="main_canopy_line_set" type="number" class="validate">
+                    <label id="main_canopy_line_set2" for="main_canopy_line_set2">Main Canopy Line set</label>
+                </div>
+
+                <div class="input-field col l6 m6 s6">
+                    <input id="main_canopy2" name="main_canopy" type="number" class="validate">
+                    <label id="main_canopy2" for="main_canopy2">Main Canopy</label>
+                </div>
+
+                <div class="input-field col l6 m6 s6">
+                    <input id="d_bag2" name="d_bag" type="number" class="validate">
+                    <label id="d_bag2" for="d_bag2">D Bag</label>
+                </div>
+
+                <div class="input-field col l6 m6 s6">
+                    <input id="pilot_chute_and_bridle2" name="pilot_chute_and_bridle" type="number" class="validate">
+                    <label id="pilot_chute_and_bridle2" for="pilot_chute_and_bridle2">Pilot Chute/Drogue and Bridle</label>
+                </div>
+                <!-- <div class="input-field col l6 m6 s6">
+                    <input id="packed_count2" name="packed_count" type="number" class="validate">
+                    <label id="packed_count2" for="packed_count2">Packed Value</label>
+                </div> -->
+
+
+
+                
+            </div>
+            <a id="delete" href="" style="width: 25%;" type="submit" class="btn left red">Delete <i class="material-icons right">delete</i></a>
+            <a id="remove_specific_warning" href="" style="width: 30%;margin-left: 20px;" type="submit" class="btn left orange">Remove Warning  <i class="material-icons right">clear_all</i></a>
+            <button style="width: 25%;" type="submit" class="btn right">Update RIG <i class="material-icons right">edit</i></button>
+        
+        </form>
+        <br>
+        <br>
+        <br>
+    </div>
+</div>
+
+
+<!-- Modal Structure -->
+<div id="modal4" class="modal ">
+    <div class="modal-content">
+            <center>
+                <h5>Last updated:  {{date}}</h5>
+            </center>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal3" class="modal " style="height: 80%;width:80%">
+    <div class="modal-content">
+        <div class="row">
+            <center>
+                <h3><b>Upload Output File</b></h3>
+            </center> 
+            <form action="" method="POST" id="form3">
+
+                <div class="input-field col l12 m12 s12">
+                    <input id="file" name="file" type="file" required>
+                    <label id="file" for="file"></label>
+                </div> 
+
+                <div class="input-field col l12 m12 s12">
+
+                    <input type="button" class="datepicker btn left" value="Select Start Range" id="date" required>
+                </div>
+
+                <div id="loader" style="display: none;">
+                    <br>
+                    <br> 
+                    <br>
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                    <br>
+                </div>
+
+                <button style="width: 25%;" type="submit" class="btn right">Upload RIG</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div style="margin: 15px;">
+
+    <table class="striped centered " id="">
+        <thead>
+            <tr>
+                <!-- <th class="numeric-sort">Rig Barcode</th> -->
+                <th class="numeric-sort">Packed Value</th>
+                <th class="numeric-sort">Container and Harness</th>
+                <th class="numeric-sort">Main Canopy Line set</th>
+                <th class="numeric-sort">Main Canopy</th>
+                <th class="numeric-sort">D Bag</th>
+                <th class="numeric-sort">Pilot Chute/Drogue and Bridle</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for rig in rigs %}
+            <tr class=" modal-trigger record" href="#modal2" id="" style="cursor: pointer !important;">
+                {% if rig.0|length > 1 %}
+                    <td class="">{{rig.0.0}}</td>
+                {% else %}
+                    <td>{{rig.0.0}}</td>
+                {% endif %}
+                
+
+                {% if rig.1|length > 1 %}
+                    <!-- <td class="">{{rig.1.0}}</td> -->
+                {% else %}
+                    <!-- <td>{{rig.1.0}}</td> -->
+                {% endif %}
+                
+
+                {% if rig.2|length > 1 %}
+                    <td class="red">{{rig.2.0}}</td>
+                {% else %}
+                    <td>{{rig.2.0}}</td>
+                {% endif %}
+                
+                {% if rig.3|length > 1 %}
+                    <td class="">{{rig.3.0}}</td>
+                {% else %}
+                    <td>{{rig.3.0}}</td>
+                {% endif %}
+                
+                {% if rig.4|length > 1 %}
+                    <td class="">{{rig.4.0}}</td>
+                {% else %}
+                    <td>{{rig.4.0}}</td>
+                {% endif %}
+                
+                {% if rig.5|length > 1 %}
+                    <td class="">{{rig.5.0}}</td>
+                {% else %}
+                    <td>{{rig.5.0}}</td>
+                {% endif %}
+                
+                {% if rig.6|length > 1 %}
+                    <td class="">{{rig.6.0}}</td>
+                {% else %}
+                    <td>{{rig.6.0}}</td>
+                {% endif %}
+                
+
+
+
+  
+                
+                
+            </tr>
+
+            {% endfor %}
+
+
+
+
+
+
+        </tbody>
+    </table>
+</div>
+
+ 
+
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content" style="min-width:230px !important">
+    <li><a id="generate_latest_report" >Generate Latest Report</a></li>
+    <li class="divider"></li> 
+    <!-- <li><a class="red-text"  href="/reset_records" >Reset Records</a></li> -->
+    <li class="divider"></li> 
+    <li><a class="red-text" href="/remove_warnings">Remove Warnings</a></li>
+      <li class="divider"></li> 
+    <!-- <li><a class="red-text" href="/delete_all">Delete All</a></li> -->
+  
+
+</ul>
+
+
+
+{% endblock 'mainbody' %}
+<script></script>
+{% block 'js' %}
+<script>
+
+$('#update').click(function(e){
+    e.preventDefault(); 
+   $.ajax({               
+        url: '/update', 
+        type: 'POST',
+        success: function( data ){
+            res = data.res 
+        }
+    });    
+})
+
+
+$('a#generate_latest_report').click(function(e){
+    e.preventDefault(); 
+   $.ajax({               
+        url: '/generate_latest_report', 
+        type: 'POST',
+        success: function( data ){
+            if (data.res == true){
+                alert("New Report Has been created !")
+            }  
+        }
+    });    
+})
+
+$('#form3').submit(function(e){
+    var date = new Date($("#date").val()).toDateString();
+    e.preventDefault();
+    if (date=='Invalid Date'){
+        alert("Please select any date")
+        e.preventDefault()
+    }else{
+        var date = new Date($("#date").val()).toDateString(); 
+        var fileToUpload = new FormData();   
+        fileToUpload.append( 'file' , $( '#file' )[0].files[0] ); 
+       $.ajax({               
+            url: '/upload',
+            data: fileToUpload,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function( data ){
+                $('#loader').show()
+                $.ajax({               
+                    url: '/update', 
+                    type: 'POST',
+                    data: {"date":date},
+                    success: function( data ){
+                        location.reload()
+     
+                    }
+                });  
+            }
+        }); 
+    }
+   
+})
+
+$('.record').on('click', function () {
+        var tds = $(this).children('td') 
+        $('#form2 input[id=barcode2]').val(tds[0].innerHTML)
+        $('#form2 label[id=barcode2]').addClass('active')
+
+ 
+
+
+        $('#form2 input[id=container_and_harness2]').val(tds[1].innerHTML)
+        $('#form2 label[id=container_and_harness2]').addClass('active')
+
+
+        $('#form2 input[id=main_canopy_line_set2]').val(tds[2].innerHTML)
+        $('#form2 label[id=main_canopy_line_set2]').addClass('active')
+
+
+        $('#form2 input[id=main_canopy2]').val(tds[3].innerHTML)
+        $('#form2 label[id=main_canopy2]').addClass('active')
+
+
+        $('#form2 input[id=d_bag2]').val(tds[4].innerHTML)
+        $('#form2 label[id=d_bag2]').addClass('active')
+
+
+        $('#form2 input[id=pilot_chute_and_bridle2]').val(tds[5].innerHTML)
+        $('#form2 label[id=pilot_chute_and_bridle2]').addClass('active')
+
+        
+        $("a#delete").attr("href", "/delete/"+tds[0].innerHTML)
+        $("a#remove_specific_warning").attr("href", "/remove_specific_warning/"+tds[0].innerHTML)
+
+
+
+
+
+    });
+
+
+</script>
+{% endblock 'js' %}
