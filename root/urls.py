@@ -33,6 +33,7 @@ urlpatterns = [
     
     
     path('reports_dir', reports_dir, name='reports_dir'),    
+    path('delete_reports_dir', delete_reports_dir, name='delete_reports_dir'),    
     path('reports_dir/download/<str:file_name>', report_dir_download, name='report_dir_download'),    
     
      

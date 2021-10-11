@@ -6,7 +6,11 @@
 <br><br>
   
 <div style="margin:5px 10px"> 
-        
+      
+  <a href="/delete_reports_dir" class="btn right red">Dleete All Reports</a>
+  <br>
+  <br>
+  <br>
   <table>
     <thead>
       <tr>
@@ -18,7 +22,7 @@
     <tbody>
       {% for report in report_files %} 
       <tr>
-        <td>{{report}}</td>
+        <td>{{forloop.counter}}.   {{report}}</td>
         <td> <a href="/reports_dir/download/{{report}}"><i class="material-icons blue-text">download</i> </a> </td> 
       </tr> 
       {% endfor %}
