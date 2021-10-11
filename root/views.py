@@ -341,15 +341,14 @@ def delete_reports_dir(request):
 @login_required(login_url='/login')
 def reports_dir(request):
     latest_report_folder_path = os.path.join(os.getcwd(),'Latest Report')
-    report_files = os.listdir(latest_report_folder_path)
-    report_files = natsorted(report_files)
+    report_files = os.listdir(latest_report_folder_path) 
     
     
     
     name_list = os.listdir(latest_report_folder_path)
     full_list = [os.path.join(latest_report_folder_path,i) for i in name_list]
     time_sorted_list = sorted(full_list, key=os.path.getmtime)[::-1]
-    time_sorted_list = [x.split("Latest Report\\")[-1] for x in time_sorted_list]
+    time_sorted_list = [x.split("Latest Report")[-1].replace("/",'').replace("\\",'') for x in time_sorted_list]
     print(time_sorted_list)
     return render(request, 'root/reports_dir.html', {
         "page_title":"Reports",
