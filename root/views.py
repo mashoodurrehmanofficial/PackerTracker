@@ -350,7 +350,7 @@ def reports_dir(request):
     time_sorted_list = sorted(full_list, key=os.path.getmtime)[::-1]
     time_sorted_list = [x.split("Latest Report")[-1].replace("/",'').replace("\\",'') for x in time_sorted_list]
     
-    time_sorted_list = [x[-1] for x in time_sorted_list]
+    time_sorted_list = [str(x).split("\\")[-1] for x in time_sorted_list]
     
     return render(request, 'root/reports_dir.html', {
         "page_title":"Reports",
