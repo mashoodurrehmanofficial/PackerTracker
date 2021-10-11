@@ -1,0 +1,59 @@
+{% extends 'base.html' %}v
+{% block 'mainbody' %}
+
+
+
+<br>
+
+<div class="container">
+  <center>
+    {% if message  %}
+      <h4 class="green-text">{{message}}</h4>
+    {% endif %}
+  
+     {% if error  %}
+      <h4 class="red-text">{{error}}</h4>
+    {% endif %}
+  
+    
+  </center>
+  
+<div class="container">
+    <form action="/login" method="post" class='z-depth-2'  style="padding: 20px;border-radius: 10px;"> {% csrf_token %}
+        <center><h3><b>Login Form</b></h3></center>
+        <div class="input-field ">
+            <input id="username" name="username" type="text" class="validate" required >
+            <label for="username">Username</label>
+          </div>
+     
+          <div class="input-field ">
+            <input id="password" type="password" name="password" class="validate" required>
+            <label for="password">Password</label>
+          </div>
+        
+   
+          <!-- <a href="/account/signup/"> <u>Create a new account</u> </a> <br>
+          <a href="/account/send_reset_url/"> <u>Reset password</u> </a>
+     
+           -->
+        <button class="btn nextbtn right" >Login</button>
+
+<br><br>
+
+    </form>
+</div>
+</div>
+
+
+
+
+
+
+
+
+ 
+
+
+{% endblock 'mainbody' %}
+{% block 'js' %}
+{% endblock 'js' %}

@@ -24,6 +24,17 @@ urlpatterns = [
     path('charts', charts, name='charts'),    
     path('get_new_data', get_new_data, name='get_new_data'),    
     
+    
+    
+    path('login', login_page, name='login_page'),    
+    path('logout', logout_page, name='logout_page'),    
+    
+    
+    
+    
+    path('reports_dir', reports_dir, name='reports_dir'),    
+    path('reports_dir/download/<str:file_name>', report_dir_download, name='report_dir_download'),    
+    
      
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

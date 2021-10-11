@@ -10,13 +10,41 @@
           <!-- <a href="/" class="brand-logo"><i style="font-size: 50px;" class="large material-icons">network_check</i></a> -->
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <ul class="right hide-on-med-and-down">
+
+
+            {% if user.is_authenticated %}
+              
+            {% if page_title == 'charts' %}
+                
+            <li><a  href="/"  >Go to Main Page </a></li> 
+            <li><a  href="/charts"  >Go to Charts <i class="material-icons right">insert_chart</i></a></li> 
+            <li><a  href="/logout"  >Logout <i class="material-icons right">logout</i></a></li> 
+            {% elif  page_title == 'Reports'  %}
+            
+            
+             <li><a  href="/"  >Go to Main Page </a></li> 
+             <li><a  href="/reports_dir"  >Reports <i class="material-icons right">archive </i></a></li> 
+             <li><a  href="/logout"  >Logout <i class="material-icons right">logout</i></a></li> 
+            
+
+            {% else %}
             <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">DB Operations<i class="material-icons right">arrow_drop_down</i></a></li>
-              <li><a target="_blank"  href="/admin/root/rigtable/">Admin Panel <i class="material-icons right">person_pin</i> </a></li> 
-              <li><a  class=" modal-trigger" href="#modal4"  >Info  <i class="material-icons right">info_outline</i></a></li> 
-              <li><a  class=" modal-trigger" href="#modal1"  >Add RIG  <i class="material-icons right">add</i></a></li> 
-              <li><a  class=" modal-trigger" href="#modal3"  >Upload File <i class="material-icons right">upload</i></a></li> 
-              <li><a  href="/charts"  >Go to Charts <i class="material-icons right">insert_chart</i></a></li> 
-        
+            <li><a target="_blank"  href="/admin/root/rigtable/">Admin Panel <i class="material-icons right">person_pin</i> </a></li> 
+            <li><a  class=" modal-trigger" href="#modal4"  >Info  <i class="material-icons right">info_outline</i></a></li> 
+            <!-- <li><a  class=" modal-trigger" href="#modal1"  >Add RIG  <i class="material-icons right">add</i></a></li> 
+            <li><a  class=" modal-trigger" href="#modal3"  >Upload File <i class="material-icons right">upload</i></a></li>  -->
+            <li><a  href="/reports_dir"  >Reports <i class="material-icons right">archive              </i></a></li> 
+            <li><a  href="/charts"  >Go to Charts <i class="material-icons right">insert_chart</i></a></li> 
+            <li><a  href="/logout"  >Logout <i class="material-icons right">logout</i></a></li> 
+            
+            {% endif %}
+            
+            
+            {% else %}
+            <li><a  href="/login"  >Login <i class="material-icons right">login</i></a></li> 
+              
+            {% endif %}
+            
 
               
             

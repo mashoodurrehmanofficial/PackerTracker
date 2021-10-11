@@ -8,9 +8,16 @@ import pandas as pd
 from collections import Counter
 from datetime import datetime
 from .chart_updater import  GENERATE_CHARTS
+from natsort import natsorted 
+from wsgiref.util import FileWrapper
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
 @csrf_exempt
+@login_required(login_url='/login')
 def index(request):
     rigs = RIGTABLE.objects.all()
 
@@ -82,6 +89,7 @@ def index(request):
 
 
 @csrf_exempt
+@login_required(login_url='/login')
 def delete(request,barcode):
     rig = RIGTABLE.objects.filter(barcode=barcode).exists()
     if rig:
@@ -97,6 +105,7 @@ def delete(request,barcode):
  
  
 @csrf_exempt
+@login_required(login_url='/login')
 def update(request):
     folder_path = os.path.join(os.getcwd(),'uploaded_file')
     file = os.path.join(folder_path,os.listdir(folder_path)[0])
@@ -180,6 +189,7 @@ def update(request):
 
 
 @csrf_exempt
+@login_required(login_url='/login')
 def remove_specific_warning(request,barcode):
     rig_exists = RIGTABLE.objects.filter(barcode=barcode).exists()
     if rig_exists:  
@@ -205,6 +215,7 @@ def remove_specific_warning(request,barcode):
 
 
 @csrf_exempt
+@login_required(login_url='/login')
 def upload(request):
     uploaded_file = request.FILES['file']
     folder_path = os.path.join(os.getcwd(),'uploaded_file')
@@ -216,6 +227,8 @@ def upload(request):
     with open( os.path.join(os.getcwd(),'uploaded_file',uploaded_file.name) ,'wb')as file:
         file.write(uploaded_file.read())
     return JsonResponse({'res':True})
+
+@login_required(login_url='/login')
 @csrf_exempt
 def remove_warnings(request):
     rigs = RIGTABLE.objects.all()
@@ -235,7 +248,10 @@ def remove_warnings(request):
         rig.save()
 
     return redirect('/')
+
+
 @csrf_exempt
+@login_required(login_url='/login')
 def generate_latest_report(request):
     latest_report_folder_path = os.path.join(os.getcwd(),'Latest Report')
     if os.path.exists(latest_report_folder_path):pass
@@ -262,6 +278,7 @@ def generate_latest_report(request):
 
 
 @csrf_exempt
+@login_required(login_url='/login')
 def reset_records(request):
     rigs = RIGTABLE.objects.all()
     for rig in rigs:
@@ -276,6 +293,7 @@ def reset_records(request):
     return redirect('/')
  
 @csrf_exempt
+@login_required(login_url='/login')
 def delete_all(request):
     rigs = RIGTABLE.objects.all().delete()
 
@@ -284,12 +302,61 @@ def delete_all(request):
 
  
  
-   
+@login_required(login_url='/login')
 def charts(request):
-    return render(request, 'root/charts.html' )
+    return render(request, 'root/charts.html', {"page_title":"charts"} )
+  
+    
+def login_page(request):
+    if request.method=='POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username,password=password)
+        if user is not None:
+            login(request, user)
+            print("login successful !") 
+            return redirect('index') 
+        else:
+            return render(request, 'login.html',{"error":"Sorry, Email or password is incorrect !","page_title":"Login"})
+      
+         
+         
+    return render(request, 'root/login_page.html', {"page_title":"Login"} )
+  
+ 
+
+  
+ 
+@login_required(login_url='/login')
+def reports_dir(request):
+    latest_report_folder_path = os.path.join(os.getcwd(),'Latest Report')
+    report_files = os.listdir(latest_report_folder_path)
+    report_files = natsorted(report_files)
+    return render(request, 'root/reports_dir.html', {
+        "page_title":"Reports",
+        "report_files":report_files
+    } )
   
  
 
  
  
+   
  
+@login_required(login_url='/login')
+def report_dir_download(request,file_name):
+    latest_report_folder_path = os.path.join(os.getcwd(),'Latest Report')
+    report_file = os.path.join(latest_report_folder_path,file_name) 
+    
+    print(report_file)
+    with open(report_file, 'rb') as f:
+        data = f.read()
+    response = HttpResponse(data, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = f'attachment; filename="{file_name}"'
+    return response 
+
+ 
+ 
+def logout_page(request):
+    logout(request)
+    return redirect('login_page')

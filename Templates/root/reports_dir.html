@@ -1,0 +1,36 @@
+{% extends 'base.html' %}v
+{% block 'mainbody' %} 
+ 
+
+
+<br><br>
+  
+<div style="margin:5px 10px"> 
+        
+  <table>
+    <thead>
+      <tr>
+          <th>Report Name</th>
+          <th>Download</th> 
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for report in report_files %} 
+      <tr>
+        <td>{{report}}</td>
+        <td> <a href="/reports_dir/download/{{report}}"><i class="material-icons blue-text">download</i> </a> </td> 
+      </tr> 
+      {% endfor %}
+    </tbody>
+  </table>
+        
+    
+
+</div>
+
+{% endblock 'mainbody' %}
+<script></script>
+{% block 'js' %}
+
+{% endblock 'js' %}
