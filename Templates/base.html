@@ -100,6 +100,38 @@ td{
       coverTrigger:false
     });
   });
+
+
+</script>
+
+
+<script src="https://rawgit.com/eligrey/FileSaver.js/master/FileSaver.js"></script>
+<script src ="https://rawgit.com/eligrey/canvas-toBlob.js/master/canvas-toBlob.js"></script>
+<script>
+
+  $('#take_screenshot').click(function(e){
+    html2canvas(document.querySelector('#resultant_chart')).then(canvas => {
+     //document.body.appendChild(canvas);  
+
+
+     var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+     var link = document.createElement('a');
+     link.download = "Chart.png";
+     link.href = image;
+     link.click();
+
+
+
+
+
+
+
+
+     
+   });
+  })
+
+
 </script>
    </body>
  </html>

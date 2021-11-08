@@ -1,5 +1,12 @@
 {% extends 'base.html' %}v
 {% block 'mainbody' %} 
+<input download="my-file-name.png" type="button" class="btn grey darken-3" value="Downlaod Chart" id="take_screenshot" style="margin:5px 10px">
+
+
+
+
+
+
 <div class="right" style="margin:5px 10px">
   <input type="button" class="datepicker btn" value="Select Start Range" id="start_date">
   <input type="button" class="datepicker btn" value="Select End Range" id="end_date">
@@ -12,11 +19,11 @@
   
 <div style="margin:5px 10px"> 
         
-    <div class="card card-chart">
+    <div class="card card-chart  ">
       <div style="padding:5px 10px">
         <!-- <h5 class="card-category">Daily Sales</h5>  -->
       </div>
-      <div class="card-body">
+      <div class="card-body" id="resultant_chart">
         <div class="chart-area">
           <canvas style="height:450px" id="CountryChart"></canvas>
         </div>
@@ -27,7 +34,10 @@
 </div>
 
 {% endblock 'mainbody' %}
-<script></script>
-{% block 'js' %}
+<script>
 
+</script>
+{% block 'js' %}
+<script src="https://superal.github.io/canvas2image/canvas2image.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 {% endblock 'js' %}

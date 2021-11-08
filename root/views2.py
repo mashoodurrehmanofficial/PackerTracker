@@ -30,7 +30,8 @@ def get_new_data(request):
             if rig['barcode'] in list(container.keys()):  container[rig['barcode']] =  int(container[rig['barcode']] ) +  int(rig['total_jumps'] )  # add + 
             else:   container[rig['barcode']] = int(rig['total_jumps'] )
 
-        print(container)
+        for x in container:
+            container[x] = abs(container[x])
         
         
         labels = natsorted(list(container.keys()))

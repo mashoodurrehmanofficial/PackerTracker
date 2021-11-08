@@ -78,6 +78,8 @@ def index(request):
         with open(date_file,'r') as filereader:
             date = str(filereader.read()).strip()
 
+ 
+
         return render(request, 'root/index.html',{'rigs':rigs,'date':date})
 
 
@@ -109,8 +111,14 @@ def delete(request,barcode):
 def update(request):
     folder_path = os.path.join(os.getcwd(),'uploaded_file')
     file = os.path.join(folder_path,os.listdir(folder_path)[0])
-    df = pd.read_excel(file, engine = 'openpyxl',header=None).values.tolist()
-    df = [x[0] for x in df]
+    print(file) 
+    if str(file).endswith('.txt'):
+        df = open(file,'r', encoding='utf-8').readlines()
+        df = [str(x).strip()  for x in df]
+    else:
+        df = pd.read_excel(file, engine = 'openpyxl',header=None).values.tolist()
+        df = [x[0] for x in df]
+        
     df = list(dict(Counter(df)).items())
     for barcode in df:
         rig_exists = RIGTABLE.objects.filter(barcode=barcode[0])
@@ -203,7 +211,7 @@ def remove_specific_warning(request,barcode):
         rig.main_canopy            = generate_value(rig.main_canopy)
         rig.d_bag                  = generate_value(rig.d_bag)
         rig.pilot_chute_and_bridle = generate_value(rig.pilot_chute_and_bridle)
-        rig.last_unit = int(rig.last_unit)+50
+        rig.last_unit = int(rig.last_unit)+100
         rig.save() 
         print("-->> New LAST UNIT = ", rig.last_unit)
 
@@ -243,7 +251,7 @@ def remove_warnings(request):
         rig.main_canopy            = generate_value(rig.main_canopy)
         rig.d_bag                  = generate_value(rig.d_bag)
         rig.pilot_chute_and_bridle = generate_value(rig.pilot_chute_and_bridle)
-        rig.last_unit = int(rig.last_unit)+50
+        rig.last_unit = int(rig.last_unit)+100
 
         rig.save()
 
@@ -256,7 +264,7 @@ def generate_latest_report(request):
     latest_report_folder_path = os.path.join(os.getcwd(),'Latest Report')
     if os.path.exists(latest_report_folder_path):pass
     else:os.makedirs(latest_report_folder_path)
-    data_set = [[str(y).split('_red')[0] for y in x.values()][1:-2] for x in RIGTABLE.objects.all().values()]
+    data_set = [[str(y).split('_red')[0] for y in x.values()][1:-2] for x in RIGTABLE.objects.all().order_by('sort_key1','sort_key2').values()]
     
     for record in data_set:
         for index,val in enumerate(record):
