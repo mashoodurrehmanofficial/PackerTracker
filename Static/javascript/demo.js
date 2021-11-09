@@ -166,7 +166,7 @@ gradientBarChartConfiguration = {
     });
 
  
-$('#get_results').click(function(){
+$('#get_results').click(function(){ 
   var start_date =  new Date( $('#start_date').val())
   var end_date = new Date($('#end_date').val()) 
   if (start_date=='Invalid Date' || end_date=='Invalid Date'){
