@@ -18,7 +18,7 @@ gradientBarChartConfiguration = {
       animation: {
         duration: 0,
         onComplete: function () {
-            // render the value of the chart above the bar
+            // render the value of the chart above the bar -
             var ctx = this.chart.ctx;
             ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
             ctx.fillStyle = this.chart.config.options.defaultFontColor;
