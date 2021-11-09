@@ -56,11 +56,12 @@ gradientBarChartConfiguration = {
         position: "nearest"
       },
       responsive: true,
+      animation: true,
       animation: {
         duration: 0,
         easing: "easeOutQuart",
         onComplete: function () {
-          alert(1)
+          
             var ctx = this.chart.ctx;
             ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
             ctx.textAlign = 'center';
@@ -109,7 +110,8 @@ gradientBarChartConfiguration = {
           },
           ticks: { 
             padding: 20,
-            fontColor: "#9e9e9e"
+            fontColor: "#9e9e9e",
+            
           }
         }],
 
