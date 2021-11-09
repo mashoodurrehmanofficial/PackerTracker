@@ -55,10 +55,9 @@ gradientBarChartConfiguration = {
         intersect: 0,
         position: "nearest"
       },
-      responsive: true,
-      animation: true,
+      responsive: true, 
       animation: {
-        duration: 0,
+        duration: 5,
         easing: "easeOutQuart",
         onComplete: function () {
           
