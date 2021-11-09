@@ -1,3 +1,44 @@
+// Font color for values inside the bar
+var insideFontColor = '255,255,255';
+// Font color for values above the bar
+var outsideFontColor = '0,0,0';
+// How close to the top edge bar can be before the value is put inside it
+var topThreshold = 20;
+
+var modifyCtx = function(ctx) {
+  ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, 'normal', Chart.defaults.global.defaultFontFamily);
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'bottom';
+  return ctx;
+};
+
+var fadeIn = function(ctx, obj, x, y, black, step) {
+  var ctx = modifyCtx(ctx);
+  var alpha = 0;
+  ctx.fillStyle = black ? 'rgba(' + outsideFontColor + ',' + step + ')' : 'rgba(' + insideFontColor + ',' + step + ')';
+  ctx.fillText(obj, x, y);
+};
+
+var drawValue = function(context, step) {
+  var ctx = context.chart.ctx;
+
+  context.data.datasets.forEach(function (dataset) {
+    for (var i = 0; i < dataset.data.length; i++) {
+      var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+      var textY = (model.y > topThreshold) ? model.y - 3 : model.y + 20;
+      fadeIn(ctx, dataset.data[i], model.x, textY, model.y > topThreshold, step);
+    }
+  });
+};
+
+
+
+
+
+
+
+
+
 gradientBarChartConfiguration = {
       maintainAspectRatio: false,
       legend: {
@@ -15,31 +56,46 @@ gradientBarChartConfiguration = {
         position: "nearest"
       },
       responsive: true,
-      animation: {
-        duration: 0,
-        easing: "easeOutQuart",
-        onComplete: function () {
-            var ctx = this.chart.ctx;
-            ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'bottom';
+    //   animation: {
+    //     duration: 0,
+    //     easing: "easeOutQuart",
+    //     onComplete: function () {
+    //         var ctx = this.chart.ctx;
+    //         ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+    //         ctx.textAlign = 'center';
+    //         ctx.textBaseline = 'bottom';
 
-            this.data.datasets.forEach(function (dataset) {
-                for (var i = 0; i < dataset.data.length; i++) {
-                    var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model,
-                        scale_max = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._yScale.maxHeight;
-                    ctx.fillStyle = '#444';
-                    var y_pos = model.y - 5;
-                    // Make sure data value does not get overflown and hidden
-                    // when the bar's value is too close to max value of scale
-                    // Note: The y value is reverse, it counts from top down
-                    if ((scale_max - model.y) / scale_max >= 0.93)
-                        y_pos = model.y + 20; 
-                    ctx.fillText(dataset.data[i], model.x, y_pos);
-                }
-            });               
-        }
+    //         this.data.datasets.forEach(function (dataset) {
+    //             for (var i = 0; i < dataset.data.length; i++) {
+    //                 var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model,
+    //                     scale_max = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._yScale.maxHeight;
+    //                 ctx.fillStyle = '#444';
+    //                 var y_pos = model.y - 5;
+    //                 // Make sure data value does not get overflown and hidden
+    //                 // when the bar's value is too close to max value of scale
+    //                 // Note: The y value is reverse, it counts from top down
+    //                 if ((scale_max - model.y) / scale_max >= 0.93)
+    //                     y_pos = model.y + 20; 
+    //                 ctx.fillText(dataset.data[i], model.x, y_pos);
+    //             }
+    //         });               
+    //     }
+    // },
+
+
+
+    animation: {
+      onComplete: function() {
+        this.chart.controller.draw();
+        drawValue(this, 1);
+      },
+      onProgress: function(state) {
+        var animation = state.animationObject;
+        drawValue(this, animation.currentStep / animation.numSteps);
+      }
     },
+
+
 
       scales: {
         yAxes: [{
