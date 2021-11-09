@@ -16,7 +16,7 @@ gradientBarChartConfiguration = {
       },
       responsive: true,
       animation: {
-        duration: 5,
+        duration: 0,
         easing: "easeOutQuart",
         onComplete: function () {
             var ctx = this.chart.ctx;
