@@ -113,7 +113,8 @@ td{
      //document.body.appendChild(canvas);  
      var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
      var link = document.createElement('a');
-     link.download = "Chart.png";
+     var chart_report_name  = localStorage.getItem("chart_report_name");
+     link.download =  `Chart Report - ${chart_report_name}.png` 
      link.href = image;
      link.click();
    });
@@ -365,6 +366,9 @@ $('#get_results').click(function(){
         data.datasets[0].data = data_set;
         data.labels = labels;
         myChart.update();
+
+        $('.card-category').html(`${$('#start_date').val()} to  ${$('#end_date').val()}`  )
+        localStorage.setItem("chart_report_name",  `${$('#start_date').val()} to  ${$('#end_date').val()}`  );
 
       }
       
