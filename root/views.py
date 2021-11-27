@@ -112,7 +112,7 @@ def update(request):
     folder_path = os.path.join(os.getcwd(),'uploaded_file')
     file = os.path.join(folder_path,os.listdir(folder_path)[0])
     print(file) 
-    if str(file).endswith('.txt'):
+    if str(file).endswith('.txt') or  str(file).endswith('.TXT'):
         df = open(file,'r', encoding='utf-8').readlines()
         df = [str(x).strip()  for x in df]
     else:
@@ -228,6 +228,7 @@ def upload(request):
     uploaded_file = request.FILES['file']
     folder_path = os.path.join(os.getcwd(),'uploaded_file')
     shutil.rmtree(folder_path)
+    print(1)
 
     if os.path.exists(folder_path):pass
     else:os.makedirs(folder_path)
