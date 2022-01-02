@@ -36,9 +36,16 @@ def get_new_data(request):
         
         labels = natsorted(list(container.keys()))
         data_set = [container[x] for x in labels] 
+        
+        t_rig_count = sum([data_set[index] for index,x in enumerate(labels) if str(x).lower().startswith("t")])
+        s_rig_count = sum([data_set[index] for index,x in enumerate(labels) if str(x).lower().startswith("s")])
+       
+        
         return JsonResponse({"results":{
             "labels":  labels,
-            "data_set":  data_set
+            "data_set":  data_set,
+            "t_rig_count": t_rig_count,
+            "s_rig_count": s_rig_count
         }})
         
         

@@ -16,11 +16,17 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+
+def findNextUnit(num):
+    temp = num
+    temp%=100
+    temp = num + (100-temp)
+    return temp
+
 @csrf_exempt
 @login_required(login_url='/login')
 def index(request):
-    rigs = RIGTABLE.objects.all()
-
+    rigs = RIGTABLE.objects.all() 
     if request.method=='POST':
         barcode = request.POST['barcode']
         packed_count =  0
@@ -35,7 +41,7 @@ def index(request):
             rig = RIGTABLE.objects.get(barcode=barcode)
             def generate_value(old,incoming):
                 old = int(str(old).split('_red')[0])
-                if int(incoming)>=rig.last_unit:
+                if int(incoming)>=rig.hundred_mod_unit:
                     new_value =   str(incoming)+'_red'
                     return new_value
                 else:
@@ -129,7 +135,7 @@ def update(request):
             def generate_value(old_value):
 
                 new_value = int(old_value.split('_red')[0]) + count
-                if new_value>=rig.last_unit:
+                if new_value>=rig.hundred_mod_unit:
                     new_value = str(new_value)+'_red'
                     return new_value
                 else:
@@ -182,8 +188,9 @@ def update(request):
     df.to_excel(os.path.join(backup_folder_path,filename), index=False)
     print(df)
     print("------ Create Charts ----------")
-    GENERATE_CHARTS(request.POST['date'])
+    res = GENERATE_CHARTS(request.POST['date'])
 
+    print(res)
     return JsonResponse({'res':True})
 
 
@@ -211,9 +218,11 @@ def remove_specific_warning(request,barcode):
         rig.main_canopy            = generate_value(rig.main_canopy)
         rig.d_bag                  = generate_value(rig.d_bag)
         rig.pilot_chute_and_bridle = generate_value(rig.pilot_chute_and_bridle)
+        
         rig.last_unit = int(rig.last_unit)+100
+        rig.hundred_mod_unit= findNextUnit( int(rig.container_and_harness) )
         rig.save() 
-        print("-->> New LAST UNIT = ", rig.last_unit)
+        print("-->> New LAST UNIT = ", rig.hundred_mod_unit)
 
 
 
@@ -253,6 +262,7 @@ def remove_warnings(request):
         rig.d_bag                  = generate_value(rig.d_bag)
         rig.pilot_chute_and_bridle = generate_value(rig.pilot_chute_and_bridle)
         rig.last_unit = int(rig.last_unit)+100
+        rig.hundred_mod_unit= findNextUnit( int(rig.container_and_harness) )
 
         rig.save()
 

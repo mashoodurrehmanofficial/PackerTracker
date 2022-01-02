@@ -14,11 +14,12 @@ class RIGTABLE(models.Model):
     main_canopy = models.CharField(max_length=100000000000, blank=True,default='', verbose_name = 'Main Canopy')
     d_bag = models.CharField(max_length=100000000000, blank=True,default='', verbose_name = 'D Bag')
     pilot_chute_and_bridle = models.CharField(max_length=100000000000, blank=True,default='', verbose_name = 'Pilot Chute/Drogue and Bridle’')
-
     last_unit = models.IntegerField(default=100,blank=True)
-
     sort_key1=models.CharField(max_length=100,default=0,blank=True)
     sort_key2=models.IntegerField(default=0,blank=True)
+    
+    hundred_mod_unit = models.IntegerField(default=100,blank=True)
+    
 
     def __str__(self):
         return self.barcode

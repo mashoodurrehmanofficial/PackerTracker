@@ -361,13 +361,22 @@ $('#get_results').click(function(){
         var results = result.results
         var labels  = results.labels
         var data_set  = results.data_set
+        var s_rig_count = results.s_rig_count
+        var t_rig_count = results.t_rig_count
         var chart_data = [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130];
         var data = myChart.config.data;
         data.datasets[0].data = data_set;
         data.labels = labels;
         myChart.update();
-
-        $('.card-category').html(`${$('#start_date').val()} to  ${$('#end_date').val()}`  )
+        //s_rig_count
+        $('.card-category').html(`
+        <b>
+          Date: ${$('#start_date').val()} to  ${$('#end_date').val()}  <br>
+          S-RIGS = ${s_rig_count} <br>
+          T-RIGS = ${t_rig_count} 
+        </b >
+          
+        `)
         localStorage.setItem("chart_report_name",  `${$('#start_date').val()} to  ${$('#end_date').val()}`  );
 
       }
